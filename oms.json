@@ -1,0 +1,38 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspaceName":{
+            "type": "string"
+        },
+        "omssku":{
+            "type": "string",
+            "allowedValues": [
+                "PerNode",
+                "PerGB2018",
+                "Standard",
+                "Free",
+                "Premium",
+                "Standalone",
+                "Unlimited"
+            ]
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "name": "[parameters('workspaceName')]",
+            "apiVersion": "2015-11-01-preview",
+            "location": "westeurope",
+            "properties": {
+                "sku": {
+                    "name": "[parameters('omssku')]"
+                },
+                "features": {
+                    "searchVersion": 1
+                }
+            }
+        }
+    ]
+}

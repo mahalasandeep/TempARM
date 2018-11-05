@@ -1,0 +1,123 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "keyVaultName": {
+            "value": "geinkeyvault002"
+        },
+        "objectId": {
+            "value": "cf0d7c6b-44c0-47f5-a936-7ec29f04457b"
+        },
+        "servicePrincipalClientSecret": {
+            "value": ""
+        },
+        "workspaceName": {
+            "value": "geinwrksps002"
+        },
+        "omssku": {
+            "value": "PerNode"
+        },
+        "nsg_name": {
+            "value": "geinvmNSG001"
+        },
+        "VNET_name": {
+            "value": "geinvnet"
+        },
+        "Subnet_name": {
+            "value": "geinsubnet"
+        },
+        "acrName": {
+            "value": "geinacr002"
+        },
+        "acrAdminUserEnabled": {
+            "value": false
+        },
+        "location": {
+            "value": "eastus"
+        },
+        "acrSku": {
+            "value": "Basic"
+        },
+        "applicationGatewayName": {
+            "value": "geinapgw002"
+        },
+        "tier": {
+            "value": "WAF"
+        },
+        "skuSize": {
+            "value": "WAF_Medium"
+        },
+        "agwsku": {
+            "value": "Basic"
+        },
+        "capacity": {
+            "value": 2
+        },
+        "frontEndPort": {
+            "value": 80
+        },
+        "apgwsubnetName": {
+            "value": "geinsubnet"
+        },
+        "enableHttp2": {
+            "value": false
+        },
+        "zones": {
+            "value": []
+        },
+        "publicIpAddressName": {
+            "value": "geingwpip002"
+        },
+        "allocationMethod": {
+            "value": "dynamic"
+        },
+        "publicIpZones": {
+            "value": []
+        },
+        "idleTimeoutInMinutes": {
+            "value": 4
+        },
+        "virtualNetworkRG": {
+            "value": "test02"
+        },
+        "virtualNetworkName": {
+            "value": "geinvnet"
+        },
+        "administratorLogin": {
+            "value": "Sb01cs024@abc"
+        },
+        "administratorLoginPassword": {
+            "value": ""
+        },
+        "dblocation": {
+            "value": "eastus"
+        },
+        "serverName": {
+            "value": "geinpostgrsdb"
+        },
+        "skuCapacity": {
+            "value": 2
+        },
+        "skuFamily": {
+            "value": "Gen5"
+        },
+        "skuName": {
+            "value": "GP_Gen5_2"
+        },
+        "skuSizeMB": {
+            "value": 5120
+        },
+        "skuTier": {
+            "value": "GeneralPurpose"
+        },
+        "version": {
+            "value": "9.6"
+        },
+        "backupRetentionDays": {
+            "value": 7
+        },
+        "geoRedundantBackup": {
+            "value": "Disabled"
+        }
+    }
+}

@@ -1,0 +1,81 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "administratorLogin": {
+      "type": "string",
+      "defaultValue": "geinadmin"
+    },
+    
+    "administratorLoginPassword": {
+      "type": "securestring"
+    },
+    "dblocation": {
+      "type": "string",
+      "defaultValue": "northeurope"
+    },
+    "serverName": {
+      "type": "string",
+      "defaultValue": "geinpostgrsdb"
+    },
+    "skuCapacity": {
+      "type": "int",
+      "defaultValue": 2
+    },
+    "skuFamily": {
+      "type": "string",
+      "defaultValue": "Gen5"
+    },
+    "skuName": {
+      "type": "string",
+      "defaultValue": "GP_Gen5_2"
+    },
+    "skuSizeMB": {
+      "type": "int",
+      "defaultValue": 5120
+    },
+    "skuTier": {
+      "type": "string",
+      "defaultValue": "GeneralPurpose"
+    },
+    "version": {
+      "type": "string",
+      "defaultValue": "9.6"
+    },
+    "backupRetentionDays": {
+      "type": "int",
+      "defaultValue": 7
+    },
+    "geoRedundantBackup": {
+      "type": "string",
+      "defaultValue": "Disabled"
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2017-12-01",
+      "kind": "",
+      "location": "[parameters('dblocation')]",
+      "name": "[parameters('serverName')]",
+      "properties": {
+        "version": "[parameters('version')]",
+        "administratorLogin": "[parameters('administratorLogin')]",
+        "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
+        "storageProfile": {
+          "storageMB": "[parameters('skuSizeMB')]",
+          "backupRetentionDays": "[parameters('backupRetentionDays')]",
+          "geoRedundantBackup": "[parameters('geoRedundantBackup')]"
+        }
+      },
+      "sku": {
+        "name": "[parameters('skuName')]",
+        "tier": "[parameters('skuTier')]",
+        "capacity": "[parameters('skuCapacity')]",
+        "size": "[parameters('skuSizeMB')]",
+        "family": "[parameters('skuFamily')]"
+      },
+      "type": "Microsoft.DBforPostgreSQL/servers"
+    }
+  ],
+  "variables": {}
+}

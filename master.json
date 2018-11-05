@@ -1,0 +1,361 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "keyVaultName": {
+            "type": "string"
+        },
+        "objectId": {
+            "type": "string"
+        },
+        "servicePrincipalClientSecret": {
+            "type": "securestring"
+        },
+        "workspaceName": {
+            "type": "string"
+        },
+        "omssku": {
+            "type": "string"
+        },
+        "nsg_name": {
+            "type": "string"
+        },
+        "VNET_name": {
+            "type": "string"
+        },
+        "Subnet_name": {
+            "type": "string"
+        },
+        "acrName": {
+            "type": "string"
+        },
+        "acrAdminUserEnabled": {
+            "type": "bool"
+        },
+        "location": {
+            "type": "string"
+        },
+        "acrSku": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "applicationGatewayName": {
+            "type": "string"
+        },
+        "tier": {
+            "type": "string"
+        },
+        "skuSize": {
+            "type": "string"
+        },
+        "capacity": {
+            "type": "int"
+        },
+        "frontEndPort": {
+            "type": "int"
+        },
+        "apgwsubnetName": {
+            "type": "string"
+        },
+        "enableHttp2": {
+            "type": "bool"
+        },
+        "zones": {
+            "type": "array"
+        },
+        "publicIpAddressName": {
+            "type": "string"
+        },
+        "agwsku": {
+            "type": "string"
+        },
+        "allocationMethod": {
+            "type": "string"
+        },
+        "publicIpZones": {
+            "type": "array"
+        },
+        "idleTimeoutInMinutes": {
+            "type": "int"
+        },
+        "virtualNetworkRG":{
+            "type": "string"
+
+        }, 
+        "virtualNetworkName":{
+            "type": "string"
+        },
+        "administratorLogin": {
+            "type": "string"
+          },
+          "administratorLoginPassword": {
+            "type": "string"
+          },
+          "dblocation": {
+            "type": "string"
+          },
+          "serverName": {
+            "type": "string"
+          },
+          "skuCapacity": {
+            "type": "int"
+          },
+          "skuFamily": {
+            "type": "string"
+          },
+          "skuName": {
+            "type": "string"
+          },
+          "skuSizeMB": {
+            "type": "int"
+          },
+          "skuTier": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "backupRetentionDays": {
+            "type": "int"
+          },
+          "geoRedundantBackup": {
+            "type": "string"
+          },
+        "_artifactsLocation": {
+            "type": "string",
+            "defaultValue": "https://raw.githubusercontent.com/sandeephanu/CoolStuff/master/in/"
+        }
+    },
+    "variables": {
+        "configuration": {
+            "keyVault": "[concat(parameters('_artifactsLocation'),'keyvault.json')]",
+            "OMS": "[concat(parameters('_artifactsLocation'),'oms.json')]",
+            "VNET": "[concat(parameters('_artifactsLocation'),'vnet.json')]",
+            "ACR": "[concat(parameters('_artifactsLocation'),'ACR.json')]",
+            "AGW": "[concat(parameters('_artifactsLocation'),'AppGateway.json')]",
+            "PostgresSQL": "[concat(parameters('_artifactsLocation'),'NewPostgreSqlServer.json')]"
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "2015-01-01",
+            "name": "keyvault",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "contentVersion": "1.0.0.0",
+                    "uri": "[variables('configuration').keyVault]"
+                },
+                "parameters": {
+                    "keyVaultName": {
+                        "value": "[parameters('keyVaultName')]"
+                    },
+                    "objectId": {
+                        "value": "[parameters('objectId')]"
+                    },
+                    "servicePrincipalClientSecret": {
+                        "value": "[parameters('servicePrincipalClientSecret')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2015-01-01",
+            "name": "OMS",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "contentVersion": "1.0.0.0",
+                    "uri": "[variables('configuration').OMS]"
+                },
+                "parameters": {
+                    "workspaceName": {
+                        "value": "[parameters('workspaceName')]"
+                    },
+                    "omssku": {
+                        "value": "[parameters('omssku')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2015-01-01",
+            "name": "VNET",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "contentVersion": "1.0.0.0",
+                    "uri": "[variables('configuration').VNET]"
+                },
+                "parameters": {
+                    "nsg_name": {
+                        "value": "[parameters('nsg_name')]"
+                    },
+                    "VNET_name": {
+                        "value": "[parameters('VNET_name')]"
+                    },
+                    "Subnet_name": {
+                        "value": "[parameters('Subnet_name')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2015-01-01",
+            "name": "ACR",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "contentVersion": "1.0.0.0",
+                    "uri": "[variables('configuration').ACR]"
+                },
+                "parameters": {
+                    "acrName": {
+                        "value": "[parameters('acrName')]"
+                      },
+                      "acrAdminUserEnabled": {
+                        "value": "[parameters('acrAdminUserEnabled')]"
+                      },
+                      "location": {
+                        "value": "[parameters('location')]"
+                      },
+                      "acrSku": {
+                        "value": "[parameters('acrSku')]"
+                      }
+                }
+            }
+        },
+        {
+            "apiVersion": "2015-01-01",
+            "name": "AGW",
+            "type": "Microsoft.Resources/deployments",
+            "dependsOn": [
+                "Microsoft.Resources/deployments/VNET"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "contentVersion": "1.0.0.0",
+                    "uri": "[variables('configuration').AGW]"
+                },
+                "parameters": {
+                    "location": {
+                        "value": "[parameters('location')]"
+            
+                    },
+                    "applicationGatewayName": {
+                        "value": "[parameters('applicationGatewayName')]"
+                    },
+                    "tier": {
+                        "value": "[parameters('tier')]"
+                    },
+                    "skuSize": {
+                        "value": "[parameters('skuSize')]"
+                    },
+                    "capacity": {
+                        "value": "[parameters('capacity')]"
+                    },
+                    "frontEndPort": {
+                        "value": "[parameters('frontEndPort')]"
+                    },
+                    "apgwsubnetName": {
+                        "value": "[parameters('apgwsubnetName')]"
+                    },
+                    "enableHttp2": {
+                        "value": "[parameters('enableHttp2')]"
+                    },
+                    "zones": {
+                        "value": "[parameters('zones')]"
+                    },
+                    "publicIpAddressName": {
+                        "value": "[parameters('publicIpAddressName')]"
+                    },
+                    "agwsku": {
+                        "value": "[parameters('agwsku')]"
+                    },
+                    "allocationMethod": {
+                        "value": "[parameters('allocationMethod')]"
+                    },
+                    "publicIpZones": {
+                        "value": "[parameters('publicIpZones')]"
+                    },
+                    "idleTimeoutInMinutes": {
+                        "value": "[parameters('idleTimeoutInMinutes')]"
+                    },
+                    "virtualNetworkRG":{
+                        "value": "[parameters('virtualNetworkRG')]"
+            
+                    }, 
+                    "virtualNetworkName":{
+                        "value": "[parameters('virtualNetworkName')]"
+                    }
+                   
+                    
+                }
+            }
+        },
+        {
+            "apiVersion": "2015-01-01",
+            "name": "PostgresSQL",
+            "type": "Microsoft.Resources/deployments",
+            "dependsOn": [
+                "Microsoft.Resources/deployments/VNET"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "contentVersion": "1.0.0.0",
+                    "uri": "[variables('configuration').PostgresSQL]"
+                },
+                "parameters": {
+                    "administratorLogin": {
+                        "value": "[parameters('administratorLogin')]"
+                      },
+                      "administratorLoginPassword": {
+                        "value": "[parameters('administratorLoginPassword')]"
+                      },
+                      "dblocation": {
+                        "value": "[parameters('dblocation')]"
+                      },
+                      "serverName": {
+                        "value": "[parameters('serverName')]"
+                      },
+                      "skuCapacity": {
+                        "value": "[parameters('skuCapacity')]"
+                      },
+                      "skuFamily": {
+                        "value": "[parameters('skuFamily')]"
+                      },
+                      "skuName": {
+                        "value": "[parameters('skuName')]"
+                      },
+                      "skuSizeMB": {
+                        "value": "[parameters('skuSizeMB')]"
+                      },
+                      "skuTier": {
+                        "value": "[parameters('skuTier')]"
+                      },
+                      "version": {
+                        "value": "[parameters('version')]"
+                      },
+                      "backupRetentionDays": {
+                        "value": "[parameters('backupRetentionDays')]"
+                      },
+                      "geoRedundantBackup": {
+                        "value": "[parameters('geoRedundantBackup')]"
+                      }
+                   
+                    
+                }
+            }
+        }
+        
+    ],
+    "outputs": {}
+}
