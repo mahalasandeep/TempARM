@@ -125,7 +125,7 @@
           },
         "_artifactsLocation": {
             "type": "string",
-            "defaultValue": "https://github.com/mahalasandeep/TempARM/"
+            "defaultValue": "https://raw.githubusercontent.com/mahalasandeep/TempARM/master/"
         }
     },
     "variables": {
